@@ -1,0 +1,71 @@
+{
+  "name": "Starter-kit-react-admin-template",
+  "version": "2.0.13",
+  "description": "Starter-kit React Frontend",
+  "author": "BogotaJs",
+  "homepage": "https://opensource.com",
+  "copyright": "Open source",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@coreui/coreui": "^2.0.15",
+    "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
+    "@coreui/icons": "0.3.0",
+    "@coreui/react": "^2.0.9",
+    "@material-ui/core": "1.5.0",
+    "@material-ui/icons": "1.1.0",
+    "axios": "^0.18.0",
+    "axios-extensions": "^3.0.3",
+    "bootstrap": "^4.1.3",
+    "chart.js": "^2.7.2",
+    "classnames": "^2.2.6",
+    "core-js": "^2.5.7",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "flag-icon-css": "^3.2.0",
+    "font-awesome": "^4.7.0",
+    "formik": "^1.3.1",
+    "jest": "^23.6.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "node-sass": "^4.9.3",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-app-polyfill": "^0.1.3",
+    "react-chartjs-2": "^2.7.2",
+    "react-dom": "^16.5.2",
+    "react-loadable": "^5.5.0",
+    "react-redux": "^5.0.7",
+    "react-router-config": "^4.4.0-beta.1",
+    "react-router-dom": "^4.3.1",
+    "react-select": "^2.1.0",
+    "react-spinners": "^0.4.7",
+    "react-table": "^6.8.6",
+    "react-test-renderer": "^16.5.2",
+    "react-toastify": "^4.4.0",
+    "reactstrap": "^6.5.0",
+    "redux": "^4.0.1",
+    "redux-saga": "^0.16.2",
+    "simple-line-icons": "^2.4.1",
+    "yup": "^0.26.6"
+  },
+  "devDependencies": {
+    "react-scripts": "^2.0.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:debug": "react-scripts --inspect-brk test --runInBand",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 9",
+    "not op_mini all"
+  ]
+}

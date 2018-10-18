@@ -1,0 +1,16 @@
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "postgres",
+    "database": "CONJUNTOS-API",
+    "schema": "public",
+    "synchronize": false,
+    "entities": [
+      "entities/*.js"
+    ]
+  }
+]

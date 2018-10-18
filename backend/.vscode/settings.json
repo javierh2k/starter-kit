@@ -1,0 +1,14 @@
+{
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "cSpell.enabled": true,
+    "files.exclude": {
+        "tsconfig.build.json": true,
+    },
+    "importSorter.generalConfiguration.sortOnBeforeSave": true,
+    "files.trimTrailingWhitespace": true,
+    "explorer.confirmDelete": false,
+    "tslint.autoFixOnSave": true,
+    "editor.formatOnSave": true,
+    "window.zoomLevel": 0,
+    "diffEditor.ignoreTrimWhitespace": false
+}

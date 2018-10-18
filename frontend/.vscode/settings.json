@@ -1,0 +1,8 @@
+{
+  "files.trimTrailingWhitespace": true,
+  "explorer.confirmDelete": false,
+  "tslint.autoFixOnSave": true,
+  "editor.formatOnSave": true,
+  "window.zoomLevel": 0,
+  "diffEditor.ignoreTrimWhitespace": false
+}

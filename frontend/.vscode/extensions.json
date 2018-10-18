@@ -1,0 +1,19 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "eg2.tslint",
+        "EditorConfig.EditorConfig",
+        "christian-kohler.path-intellisense",
+        "mike-co.import-sorter",
+        "mikestead.dotenv",
+        "Orta.vscode-jest",
+        "Auto ",
+        "nucllear.vscode-extension-auto-import",
+        "streetsidesoftware.code-spell-checker",
+        "wix.vscode-import-cost",
+        "formulahendry.terminal",
+        "eamodio.gitlens",
+        "spywhere.guides",
+        "wayou.vscode-todo-highlight"
+    ]
+}
