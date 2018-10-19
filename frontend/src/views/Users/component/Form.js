@@ -117,17 +117,7 @@ const UserForm = props => {
         </div>
       </div>
 
-      <button
-        type="button"
-        className="outline"
-        onClick={handleReset}
-        disabled={!dirty || isSubmitting}
-      >
-        Reset
-		  </button>
-      <button type="submit" disabled={isSubmitting}>
-        Submit
-		  </button>
+
 
     </form>
   );

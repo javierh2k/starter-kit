@@ -41,5 +41,5 @@ echo "Archivos user"
         find new/$FOLDER -type f -name "*user*"|while read FILE; do echo "archivos a renombrar $FILE"; mv $FILE $(echo $FILE|sed "s/user/${FOLDER_L}/");done
         grep -lr user new/* |while read DATA; do $sed -i "s/user/${FOLDER_L}/g" $DATA; done
 
-rsync -avz ./new/$FOLDER/* ../api/
-rm -rf ./new/$FOLDER/
+#rsync -avz ./new/$FOLDER/* ../api/
+#rm -rf ./new/$FOLDER/
