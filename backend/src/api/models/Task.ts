@@ -1,15 +1,12 @@
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { User } from './User';
+import { Base } from './Base';
 
 @Entity()
-export class Task {
+export class Task extends Base {
 
-    @PrimaryGeneratedColumn('uuid')
-    public id: string;
-
-    @IsNotEmpty()
+    @IsNotEmpty() // nullable: true
     @Column()
     public title: string;
 

@@ -18,6 +18,8 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from '../../components/Loading';
 import _ from 'lodash';
+import SweetAlert from 'sweetalert2-react';
+
 
 // api
 import api from '../../Api';
@@ -284,6 +286,17 @@ export default class UserProfile extends Component {
 			<div className="user-management">
 
 
+ 
+    <div>
+      <button onClick={() => this.setState({ show: true })}>Alert</button>
+      <SweetAlert
+        show={this.state.show}
+        title="Demo"
+        text="SweetAlert in React"
+        onConfirm={() => this.setState({ show: false })}
+      />
+    </div>
+  
         <ToastContainer />
         {loading &&
           <Loading />

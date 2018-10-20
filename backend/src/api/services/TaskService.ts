@@ -18,7 +18,7 @@ export class TaskService {
 
     public find(): Promise<Task[]> {
         this.log.info('Find all task');
-        return this.taskRepository.find({ relations: ['user'] }); // { relations: ['photos'] }
+        return this.taskRepository.find({ relations: ['user'] });
     }
 
     public findOne(id: string): Promise<Task | undefined> {

@@ -26,7 +26,7 @@ export class CreateUsers implements Seed {
 
         const users = [];
         const em = connection.createEntityManager();
-        await times(1000, async (n) => {
+        await times(100, async (n) => {
             const user = await factory(User)().seed();
             const task = await factory(Task)({ user }).make();
             const savedTask = await em.save(task);

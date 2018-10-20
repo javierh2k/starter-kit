@@ -1,12 +1,12 @@
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-
+import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
 import { Task } from './Task';
+import { Base } from './Base';
 
 @Entity()
-export class User {
+export class User extends Base {
 
     public static hashPassword(password: string): Promise<string> {
         return new Promise((resolve, reject) => {
@@ -26,9 +26,6 @@ export class User {
             });
         });
     }
-
-    @PrimaryGeneratedColumn('uuid')
-    public id: string;
 
     @IsNotEmpty()
     @Column({ name: 'first_name' })

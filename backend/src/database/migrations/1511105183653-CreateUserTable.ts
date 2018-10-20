@@ -15,6 +15,18 @@ export class CreateUserTable1511105183653 implements MigrationInterface {
                     isPrimary: true,
                     isNullable: false,
                 }, {
+                    name: 'created',
+                    type: 'TIMESTAMP',
+                    isNullable: false,
+                }, {
+                    name: 'modified',
+                    type: 'TIMESTAMP',
+                    isNullable: false,
+                }, {
+                    name: 'deleted',
+                    type: 'TIMESTAMP',
+                    isNullable: true,
+                }, {
                     name: 'first_name',
                     type: 'varchar',
                     length: '255',

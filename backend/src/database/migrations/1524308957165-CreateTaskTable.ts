@@ -15,6 +15,18 @@ export class CreateTaskTable1524308957165 implements MigrationInterface {
                     isPrimary: true,
                     isNullable: false,
                 }, {
+                    name: 'created',
+                    type: 'TIMESTAMP',
+                    isNullable: false,
+                }, {
+                    name: 'modified',
+                    type: 'TIMESTAMP',
+                    isNullable: false,
+                }, {
+                    name: 'deleted',
+                    type: 'TIMESTAMP',
+                    isNullable: true,
+                }, {
                     name: 'title',
                     type: 'varchar',
                     length: 255,

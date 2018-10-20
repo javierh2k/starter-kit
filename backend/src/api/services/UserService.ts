@@ -20,8 +20,7 @@ import { events } from '../subscribers/events';
 //     });
 
 const offset = (page, limit) => {
-    const base = (page - 1) < 0 ? 0 : page - 1;
-    return base * limit;
+    return  ((page - 1) < 0 ? 0 : page - 1) * limit;
 };
 
 @Service()
@@ -41,7 +40,6 @@ export class UserService {
     }
 
     public whereParams(params: string): any {
-        // console.log('---', params.length, '--');
         if (typeof (params) === 'undefined' || params.length < 5) { return { fieldsQuery: '', fieldValues: '' }; }
         const filterObject = params.split(',');
         const fieldArray = [];
@@ -88,9 +86,7 @@ export class UserService {
     public async find(query: any): Promise<any> {
         this.log.info('Find all users');
         const { page, limit, sortBy, desc, filtered } = query;
-        console.log(this.whereParams(filtered));
         const { fieldsQuery, fieldValues } = this.whereParams(filtered);
-        // const whereString = this.whereParams(filtered);
         const strQuery = this.userRepository.createQueryBuilder()
             .skip(offset(page, limit))
             .take(limit)
