@@ -1,16 +1,21 @@
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+    PrimaryGeneratedColumn,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn
+} from 'typeorm';
 // type : 'datetime' mysql
 
 export abstract class Base {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
 
-    @CreateDateColumn({ type: 'timestamptz' })
+    @CreateDateColumn({ type: 'timestamp' })
     public created: Date;
 
-    @UpdateDateColumn({ type: 'timestamptz' })
+    @UpdateDateColumn({ type: 'timestamp', select: false })
     public modified?: Date;
 
-    @Column({ type: 'timestamptz', nullable: true })
+    @Column({ type: 'timestamp', nullable: true, select: false })
     public deleted?: Date;
 }

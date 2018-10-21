@@ -5,9 +5,18 @@ import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
 import { Task } from './Task';
 import { Base } from './Base';
 
+enum Gender {
+    Male = 'MALE',
+    Female = 'FEMALE',
+}
+
+export enum Status {
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE',
+}
+
 @Entity()
 export class User extends Base {
-
     public static hashPassword(password: string): Promise<string> {
         return new Promise((resolve, reject) => {
             bcrypt.hash(password, 10, (err, hash) => {
@@ -19,7 +28,10 @@ export class User extends Base {
         });
     }
 
-    public static comparePassword(user: User, password: string): Promise<boolean> {
+    public static comparePassword(
+        user: User,
+        password: string
+    ): Promise<boolean> {
         return new Promise((resolve, reject) => {
             bcrypt.compare(password, user.password, (err, res) => {
                 resolve(res === true);
@@ -48,6 +60,12 @@ export class User extends Base {
     @Column()
     public username: string;
 
+    @Column('enum', { enum: Status, default: Status.ACTIVE })
+    public status: Status;
+
+    @Column('enum', { enum: Gender, default: Gender.Male })
+    public gender: Gender;
+
     @OneToMany(type => Task, task => task.user)
     public tasks: Task[];
 
@@ -59,5 +77,4 @@ export class User extends Base {
     public async hashPassword(): Promise<void> {
         this.password = await User.hashPassword(this.password);
     }
-
 }

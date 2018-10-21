@@ -5,8 +5,11 @@ export function getOsEnv(key: string): string {
 }
 
 export function getPath(path: string): string {
-    return (process.env.NODE_ENV === 'production')
-        ? join(process.cwd(), path.replace('src/', 'dist/').slice(0, -3) + '.js')
+    return process.env.NODE_ENV === 'production'
+        ? join(
+              process.cwd(),
+              path.replace('src/', 'dist/').slice(0, -3) + '.js'
+          )
         : join(process.cwd(), path);
 }
 
@@ -23,7 +26,7 @@ export function getOsPaths(key: string): string[] {
 }
 
 export function getOsEnvArray(key: string, delimiter: string = ','): string[] {
-    return process.env[key] && process.env[key].split(delimiter) || [];
+    return (process.env[key] && process.env[key].split(delimiter)) || [];
 }
 
 export function toNumber(value: string): number {
@@ -36,10 +39,12 @@ export function toBool(value: string): boolean {
 
 export function normalizePort(port: string): number | string | boolean {
     const parsedPort = parseInt(port, 10);
-    if (isNaN(parsedPort)) { // named pipe
+    if (isNaN(parsedPort)) {
+        // named pipe
         return port;
     }
-    if (parsedPort >= 0) { // port number
+    if (parsedPort >= 0) {
+        // port number
         return parsedPort;
     }
     return false;
@@ -64,17 +69,38 @@ export function fixForPostgres(cols: any): [any] {
                 delete col.length;
                 return col;
             }
+
+            if (col.name.match('created')) {
+                col.type = 'timestamptz';
+                col.default = 'now()';
+                delete col.length;
+                return col;
+            }
+
+            if (col.name.match('modified')) {
+                col.type = 'timestamptz';
+                col.default = 'now()';
+                delete col.length;
+                return col;
+            }
         }
         return col;
     });
 }
 
 export const capitalize = (str: string): string => {
-    if (typeof str !== 'string') { return ''; }
+    if (typeof str !== 'string') {
+        return '';
+    }
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 export const cameltoLowerCase = (str: string): string => {
-    if (typeof str !== 'string') { return ''; }
-    return str.split(/(?=[A-Z])/).join('_').toLowerCase();
+    if (typeof str !== 'string') {
+        return '';
+    }
+    return str
+        .split(/(?=[A-Z])/)
+        .join('_')
+        .toLowerCase();
 };

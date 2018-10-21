@@ -10,8 +10,8 @@
     "build": "npm start build",
     "presetup": "yarn install",
     "setup": "npm start config && npm start setup.script",
-    "migrations:generate": "ts-node ./node_modules/typeorm/cli.js migrations:generate", 
-    "migrations:run": "ts-node ./node_modules/typeorm/cli.js migrations:run", 
+    "migrations:generate": "ts-node ./node_modules/typeorm/cli.js migrations:generate",
+    "migrations:run": "ts-node ./node_modules/typeorm/cli.js migrations:run",
     "migrations:revert": "ts-node ./node_modules/typeorm/cli.js migrations:revert"
   },
   "engines": {
