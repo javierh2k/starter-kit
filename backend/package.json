@@ -45,7 +45,7 @@
     "@types/serve-favicon": "2.2.29",
     "@types/supertest": "2.0.4",
     "@types/uuid": "3.4.3",
-    "@types/winston": "2.3.7",
+    "@types/winston": "^2.4.4",
     "bcrypt": "2.0.1",
     "body-parser": "1.18.2",
     "chalk": "2.3.0",
@@ -86,10 +86,12 @@
     "tslint": "5.8.0",
     "typedi": "0.7.2",
     "typeorm": "^0.3.0-alpha.20",
-    "typeorm-typedi-extensions": "0.2.1",
+    "typeorm-typedi-extensions": "^0.2.1",
     "typescript": "2.8.3",
     "uuid": "3.1.0",
-    "winston": "2.4.0"
+    "winston": "2.4.0",
+    "winston-mongodb": "3.0.1",
+    "winston-syslog": "^2.0.0"
   },
   "jest": {
     "transform": {
@@ -105,7 +107,7 @@
     "testEnvironment": "node",
     "setupTestFrameworkScriptFile": "./test/unit/lib/setup.ts"
   },
-  "license": "",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "22.2.3",
     "@types/nock": "9.1.3",

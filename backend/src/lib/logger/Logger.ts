@@ -1,6 +1,32 @@
 import * as path from 'path';
 import * as winston from 'winston';
 
+// tslint:disable-next-line:no-var-requires
+import 'winston-mongodb';
+import 'winston-syslog';
+
+// require('winston-syslog').Syslog;
+
+// winston.add(winston.transports.Syslog, {
+
+// });
+
+// winston.log('info', 'Hello distributed log files!');
+// winston.info('Hello again distributed log files!');
+
+/*
+winston.add(winston.transports.File, {
+    filename: 'somefile.log',
+    level: 'info',
+    json: true,
+    //    eol: '\r\n', // for Windows, or `eol: ‘n’,` for *NIX OSs
+    timestamp: true,
+});*/
+
+// winston.log('info', 'Httetstst', { test: 'adv' });
+// winston.log('error', 'new', { test: 'adv' });
+// winston.info('info', 'restttt');
+
 /**
  * core.Log
  * ------------------------------------------------
@@ -13,7 +39,6 @@ import * as winston from 'winston';
  */
 
 export class Logger {
-
     public static DEFAULT_SCOPE = 'app';
 
     private static parsePathToScope(filepath: string): string {
@@ -31,7 +56,10 @@ export class Logger {
     private scope: string;
 
     constructor(scope?: string) {
-        this.scope = Logger.parsePathToScope((scope) ? scope : Logger.DEFAULT_SCOPE);
+        this.scope = Logger.parsePathToScope(
+            scope ? scope : Logger.DEFAULT_SCOPE
+        );
+        // winston.info('info', 'instancia');
     }
 
     public debug(message: string, ...args: any[]): void {
@@ -40,6 +68,10 @@ export class Logger {
 
     public info(message: string, ...args: any[]): void {
         this.log('info', message, args);
+    }
+
+    public verbose(message: string, ...args: any[]): void {
+        this.log('verbose', message, args);
     }
 
     public warn(message: string, ...args: any[]): void {
@@ -52,6 +84,41 @@ export class Logger {
 
     private log(level: string, message: string, args: any[]): void {
         if (winston) {
+            // mongodb://${config.mongodb.user}:${config.mongodb.password}@${config.mongodb.host}:${config.mongodb.port}/${config.mongodb.database
+            // winston.add(winston.transports.MongoDB, getDefaults('info'));
+            // winston.add(winston.transports.MongoDB, getDefaults('errror'));
+            // new winston.transports.MongoDB(getDefaults('info')),
+
+            // const loggger = new winston.Logger({
+            //     transports: [
+            //         new winston.transports.MongoDB({
+            //             name: 'mongodb-info',
+            //             dbUri: 'mongodb://localhost:27017',
+            //         }),
+            //         new winston.transports.MongoDB({
+            //             name: 'mongodb-error',
+            //             dbUri: 'mongodb://localhost:27017',
+            //         }),
+            //     ],
+            // });
+            /*
+            winston.configure({
+                transports: [
+                    new winston.transports.File({
+                        filename: 'logs/info.log',
+                        name: 'file.info',
+                        level: 'info',
+                    }),
+                    new winston.transports.File({
+                        filename: 'logs/warn.log',
+                        name: 'file.error',
+                        level: 'error',
+                    }),
+                ],
+            });*/
+            // loggger.log('info', 'tet');
+            // winston.log(level, `${this.formatScope()} ${message}`);
+            //   winston.info('info', 'restttt');
             winston[level](`${this.formatScope()} ${message}`, args);
         }
     }
@@ -59,5 +126,4 @@ export class Logger {
     private formatScope(): string {
         return `[${this.scope}]`;
     }
-
 }

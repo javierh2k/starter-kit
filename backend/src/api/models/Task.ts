@@ -16,7 +16,7 @@ export class Task extends Base {
 
     @Column({
         name: 'user_id',
-        nullable: true,
+        nullable: false,
     })
     public userId: string;
 

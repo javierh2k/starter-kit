@@ -4,9 +4,9 @@ import * as request from 'supertest';
 import { Task } from '../../../src/api/models/Task';
 import { CreateBruce } from '../../../src/database/seeds/CreateBruce';
 import { runSeed } from '../../../src/lib/seed';
-import { closeDatabase } from '../../utils/database';
-import { BootstrapSettings } from '../utils/bootstrap';
-import { prepareServer } from '../utils/server';
+import { closeDatabase } from '../../../test/utils/database';
+import { BootstrapSettings } from '../../../test/e2e/utils/bootstrap';
+import { prepareServer } from '../../../test/e2e/utils/server';
 
 describe('/api/tasks', () => {
 
@@ -21,7 +21,7 @@ describe('/api/tasks', () => {
     beforeAll(async () => {
         settings = await prepareServer({ migrate: true });
         bruce = await runSeed<Task>(CreateBruce);
-        bruceAuthorization = Buffer.from(`${bruce.taskname}:1234`).toString('base64');
+        bruceAuthorization = Buffer.from(`${bruce.firstName}:1234`).toString('base64');
     });
 
     // -------------------------------------------------------------------------

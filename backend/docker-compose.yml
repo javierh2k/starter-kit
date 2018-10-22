@@ -1,18 +1,23 @@
 version: "3"
 
 services:
-    mysql:
-        image: mysql:5.7
+    # mysql:
+    #     image: mysql:5.7
+    #     ports:
+    #         - "3306:3306"
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: root
+    #         MYSQL_ROOT_PASSWORD: secret
+    #         MYSQL_DATABASE: OPENSOURCE-API
+    #         MYSQL_USER: root
+    #         MYSQL_PASSWORD: secret
+    #     volumes:
+    #         - ./docker/mysql:/docker-entrypoint-initdb.d
+
+    mongodb:
+        image: mvertes/alpine-mongo
         ports:
-            - "3306:3306"
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_ROOT_PASSWORD: secret
-            MYSQL_DATABASE: OPENSOURCE-API
-            MYSQL_USER: root
-            MYSQL_PASSWORD: secret
-        volumes:
-            - ./docker/mysql:/docker-entrypoint-initdb.d
+            - "27017:27017"
 
     redis:
         container_name: redis

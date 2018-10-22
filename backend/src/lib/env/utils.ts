@@ -87,20 +87,3 @@ export function fixForPostgres(cols: any): [any] {
         return col;
     });
 }
-
-export const capitalize = (str: string): string => {
-    if (typeof str !== 'string') {
-        return '';
-    }
-    return str.charAt(0).toUpperCase() + str.slice(1);
-};
-
-export const cameltoLowerCase = (str: string): string => {
-    if (typeof str !== 'string') {
-        return '';
-    }
-    return str
-        .split(/(?=[A-Z])/)
-        .join('_')
-        .toLowerCase();
-};

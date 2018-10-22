@@ -5,9 +5,11 @@ import { EventDispatcherMock } from '../lib/EventDispatcherMock';
 import { LogMock } from '../lib/LogMock';
 import { RepositoryMock } from '../lib/RepositoryMock';
 
-describe('UserService', () => {
+import { UserRepository } from '../../../src/api/repositories/UserRepository';
 
-    test('Find should return a list of users', async (done) => {
+
+describe('UserService', () => {
+    test('Find should return a list of users', async done => {
         const log = new LogMock();
         const repo = new RepositoryMock();
         const ed = new EventDispatcherMock();
@@ -17,13 +19,17 @@ describe('UserService', () => {
         user.lastName = 'Doe';
         user.email = 'john.doe@test.com';
         repo.list = [user];
+
+        const us = new UserRepository();
+
         const userService = new UserService(repo as any, ed as any, log);
-        const list = await userService.find();
+        const query = { page: 1 };
+        const list = await us._find(query);
         expect(list[0].firstName).toBe(user.firstName);
         done();
     });
 
-    test('Create should dispatch subscribers', async (done) => {
+    test('Create should dispatch subscribers', async done => {
         const log = new LogMock();
         const repo = new RepositoryMock();
         const ed = new EventDispatcherMock();
@@ -32,10 +38,10 @@ describe('UserService', () => {
         user.firstName = 'John';
         user.lastName = 'Doe';
         user.email = 'john.doe@test.com';
+
         const userService = new UserService(repo as any, ed as any, log);
         const newUser = await userService.create(user);
         expect(ed.dispatchMock).toBeCalledWith([events.user.created, newUser]);
         done();
     });
-
 });

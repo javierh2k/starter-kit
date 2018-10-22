@@ -60,10 +60,10 @@ export class User extends Base {
     @Column()
     public username: string;
 
-    @Column('enum', { enum: Status, default: Status.ACTIVE })
+    @Column('enum', { enum: Status })
     public status: Status;
 
-    @Column('enum', { enum: Gender, default: Gender.Male })
+    @Column('enum', { enum: Gender })
     public gender: Gender;
 
     @OneToMany(type => Task, task => task.user)
