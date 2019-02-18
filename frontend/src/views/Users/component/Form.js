@@ -1,127 +1,137 @@
-import React from 'react';
-import { withFormik } from 'formik';
-import * as Yup from 'yup';
-import MultiSelect from './MultiSelect';
+import React from "react";
+import * as Yup from "yup";
 
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import NameIcon from "@material-ui/icons/SupervisorAccount";
+import LockIcon from "@material-ui/icons/Lock";
+import EmailIcon from "@material-ui/icons/Email";
 
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import SaveIcon from '@material-ui/icons/Save';
 
-
-const userSchema = {
-  email: Yup.string()
-    .email('E-mail is not valid!')
-    .required('E-mail is required!'),
-  firstName: Yup.string()
-    .required('Password is required!'),
-  lastName: Yup.string()
-    .required('Password confirmation is required!'),
-  status: Yup.boolean(),
-  topics: Yup.array()
-    .min(1, 'Pick at least 1 tags')
-    .of(
-      Yup.object().shape({
-        label: Yup.string().required(),
-        value: Yup.string().required(),
-      })
-    ),
-
-};
-
-const formikEnhancer = withFormik({
-  validationSchema: Yup.object().shape(userSchema),
-  mapPropsToValues: props => ({
-    email: props.data.email,
-    lastName: "",
-    firstName: "",
-    status: props.data.status || true,
-    topics: [],
-  }),
-  handleSubmit: (data, { setSubmitting }) => {
-    const payload = {
-      ...data,
-      topics: data.topics.map(t => t.value),
-    };
-    setTimeout(() => {
-      alert(JSON.stringify(payload, null, 2));
-      setSubmitting(false);
-    }, 1000);
-  },
-  displayName: 'UserForm',
+export const userValidationSchema = Yup.object({
+  name: Yup.string("Enter a name")
+    .required("Name is required"),
+  email: Yup.string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: Yup.string("")
+    .min(8, "Password must contain atleast 8 characters")
+    .required("Enter your password"),
+  confirmPassword: Yup.string("Enter your password")
+    .required("Confirm your password")
+    .oneOf([Yup.ref("password")], "Password does not match")
 });
 
-
-
-const UserForm = props => {
+export const UserForm = props => {
   const {
-    values,
-    options,
-    touched,
-    dirty,
+    values: { name, email, password, confirmPassword },
     errors,
-    handleChange,
-    handleBlur,
+    touched,
     handleSubmit,
-    handleReset,
-    setFieldValue,
+    handleChange,
+    isValid,
     setFieldTouched,
-    isSubmitting,
+    cancel,
   } = props;
+
+  const change = (name, e) => {
+    e.persist();
+    handleChange(e);
+    console.log(errors);
+    setFieldTouched(name, true, false);
+  };
   return (
-    <form onSubmit={handleSubmit} >
-      <div className="row">
-        <div className="col-sm-12">
-          <FormControl fullWidth>
-            <InputLabel htmlFor="name-simple">firstName</InputLabel>
-            <Input type="text" name="firstName" />
-          </FormControl>
-          {errors.firstName &&
-            touched.firstName && (
-              <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.firstName}</div>
-            )}
-        </div>
-
-        <div className="col-sm-12">
-          <FormControl fullWidth aria-describedby="name-helper-text">
-            <InputLabel htmlFor="name-helper">lastName</InputLabel>
-            <Input name="lastName" />
-            <FormHelperText >Some important helper text</FormHelperText>
-          </FormControl>
-          {errors.lastName &&
-            touched.lastName && (
-              <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.lastName}</div>
-            )}
-        </div>
-        <div className="col-sm-12 ">
-          <FormControl fullWidth aria-describedby="name-helper-text">
-            <InputLabel htmlFor="name-helper">email</InputLabel>
-            <Input name="email" />
-          </FormControl>
-          {errors.email &&
-            touched.email && (
-              <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.email}</div>
-            )}
-        </div>
-        <div className="col-sm-12 ">
-          <MultiSelect
-            id="color"
-            options={options}
-            value={values.topics}
-            onChange={setFieldValue}
-            onBlur={setFieldTouched}
-            error={errors.topics}
-            touched={touched.topics}
-          />
-        </div>
+    <form
+      onSubmit={handleSubmit}
+    >
+      <TextField
+        id="name"
+        name="name"
+        helperText={touched.name ? errors.name : ""}
+        error={touched.name && Boolean(errors.name)}
+        label="Name"
+        value={name}
+        onChange={change.bind(null, "name")}
+        fullWidth
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">              <NameIcon />
+            </InputAdornment>
+          )
+        }}
+      />
+      <TextField
+        id="email"
+        name="email"
+        placeholder="Email"
+        helperText={touched.email ? errors.email : ""}
+        error={touched.email && Boolean(errors.email)}
+        label="Email"
+        fullWidth
+        value={email}
+        onChange={change.bind(null, "email")}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <EmailIcon />
+            </InputAdornment>
+          )
+        }}
+      />
+      <TextField
+        id="password"
+        name="password"
+        helperText={touched.password ? errors.password : ""}
+        error={touched.password && Boolean(errors.password)}
+        label="Password"
+        fullWidth
+        type="password"
+        value={password}
+        onChange={change.bind(null, "password")}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <LockIcon />
+            </InputAdornment>
+          )
+        }}
+      />
+      <TextField
+        id="confirmPassword"
+        name="confirmPassword"
+        helperText={touched.confirmPassword ? errors.confirmPassword : ""}
+        error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+        label="Confirm Password"
+        fullWidth
+        type="password"
+        value={confirmPassword}
+        onChange={change.bind(null, "confirmPassword")}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <LockIcon />
+            </InputAdornment>
+          )
+        }}
+      />
+      <hr />
+      <div className="text-right">
+        <Button
+          variant="raised"
+          color="secondary"
+          onClick={cancel}>Cancelar</Button>
+        &nbsp;
+        <Button
+          type="submit"
+          variant="contained" size="small"
+          color="primary"
+          disabled={!isValid}>
+          <SaveIcon />
+          GUARDAR
+        </Button>
       </div>
-
-
-
     </form>
   );
 };
-
-
-export default formikEnhancer(UserForm);

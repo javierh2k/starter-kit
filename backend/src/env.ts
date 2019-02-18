@@ -2,16 +2,29 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 import * as pkg from '../package.json';
-import { getOsEnv, getOsPath, getOsPaths, normalizePort, toBool, toNumber } from './lib/env';
+import {
+    getOsEnv,
+    getOsPath,
+    getOsPaths,
+    normalizePort,
+    toBool,
+    toNumber
+} from './lib/env';
 
 /**
  * Load .env file or for tests the .env.test file.
  */
-dotenv.config({ path: path.join(process.cwd(), `.env${((process.env.NODE_ENV === 'test') ? '.test' : '')}`) });
+dotenv.config({
+    path: path.join(
+        process.cwd(),
+        `.env${process.env.NODE_ENV === 'test' ? '.test' : ''}`
+    ),
+});
 
 /**
  * Environment variables
  */
+
 export const env = {
     node: process.env.NODE_ENV || 'development',
     isProduction: process.env.NODE_ENV === 'production',
@@ -19,6 +32,10 @@ export const env = {
     isDevelopment: process.env.NODE_ENV === 'development',
     app: {
         name: getOsEnv('APP_NAME'),
+        salt: getOsEnv('SALT'),
+        refreshSalt: getOsEnv('REFRESH_SALT'),
+        tokenLife: getOsEnv('TOKEN_LIFE'),
+        refreshTokenLife: getOsEnv('REFRESH_SALT_LIFE'),
         version: (pkg as any).version,
         description: (pkg as any).description,
         host: getOsEnv('APP_HOST'),
@@ -56,13 +73,17 @@ export const env = {
         enabled: toBool(getOsEnv('SWAGGER_ENABLED')),
         route: getOsEnv('SWAGGER_ROUTE'),
         file: getOsEnv('SWAGGER_FILE'),
-        username: getOsEnv('SWAGGER_USERNAME'),
+        email: getOsEnv('SWAGGER_USERNAME'),
         password: getOsEnv('SWAGGER_PASSWORD'),
+    },
+    redis: {
+        host: getOsEnv('REDIS_HOST'),
+        port: getOsEnv('REDIS_PORT'),
     },
     monitor: {
         enabled: toBool(getOsEnv('MONITOR_ENABLED')),
         route: getOsEnv('MONITOR_ROUTE'),
-        username: getOsEnv('MONITOR_USERNAME'),
+        email: getOsEnv('MONITOR_USERNAME'),
         password: getOsEnv('MONITOR_PASSWORD'),
     },
 };

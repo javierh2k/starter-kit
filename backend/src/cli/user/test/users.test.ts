@@ -9,7 +9,6 @@ import { BootstrapSettings } from '../utils/bootstrap';
 import { prepareServer } from '../utils/server';
 
 describe('/api/users', () => {
-
     let bruce: User;
     let bruceAuthorization: string;
     let settings: BootstrapSettings;
@@ -21,7 +20,9 @@ describe('/api/users', () => {
     beforeAll(async () => {
         settings = await prepareServer({ migrate: true });
         bruce = await runSeed<User>(CreateBruce);
-        bruceAuthorization = Buffer.from(`${bruce.username}:1234`).toString('base64');
+        bruceAuthorization = Buffer.from(`${bruce.email}:1234`).toString(
+            'base64'
+        );
     });
 
     // -------------------------------------------------------------------------
@@ -37,7 +38,7 @@ describe('/api/users', () => {
     // Test cases
     // -------------------------------------------------------------------------
 
-    test('GET: / should return a list of users', async (done) => {
+    test('GET: / should return a list of users', async done => {
         const response = await request(settings.app)
             .get('/api/users')
             .set('Authorization', `Basic ${bruceAuthorization}`)
@@ -48,7 +49,7 @@ describe('/api/users', () => {
         done();
     });
 
-    test('GET: /:id should return bruce', async (done) => {
+    test('GET: /:id should return bruce', async done => {
         const response = await request(settings.app)
             .get(`/api/users/${bruce.id}`)
             .set('Authorization', `Basic ${bruceAuthorization}`)
@@ -61,5 +62,4 @@ describe('/api/users', () => {
         expect(response.body.email).toBe(bruce.email);
         done();
     });
-
 });

@@ -1,0 +1,82 @@
+import { unauthorized } from 'boom';
+import { UserRepository } from '../repositories/UserRepository';
+import { User } from '../models/User';
+
+export class AuthService {
+    constructor(
+        private readonly userRepository: UserRepository,
+        private readonly redisService: any
+    ) {
+        // this.getAsync = promisify(this.redisService.get).bind(this.redisService);
+    }
+
+    public async login(
+        email: string,
+        password: string,
+        headers: any
+    ): Promise<any> {
+        const user = await this.userRepository._findOneEmail(email);
+        console.log(email, user);
+        if (user) {
+            const userData = await this.userRepository._findOne(user.id);
+            // this.redisService.set('token', userData);
+
+            // console.log(headers);
+            console.log('compare: ', User.comparePassword(user, password));
+
+            if (user.password === password) {
+                // const clientCredentials = await this.getClientCredentials(
+                //     headers.xConsumerId
+                // );
+                //     client_id: clientCredentials.client_id,
+                //     client_secret: clientCredentials.client_secret,
+                //     grant_type: 'password',
+                //     provision_key: process.env.PROVISION_KEY,
+                //     authenticated_userid: user.id,
+                //     email: user.email,
+                //     password: user.password,
+                // },
+                // {
+                //     headers: {
+                //         apikey: headers.apikey,
+                //     },
+                // }).then(
+                // this.redisService.set(token.data.access_token, JSON.stringify(userData));
+                //  return token.data;
+                return Promise.resolve({ data: '123456' });
+            }
+            throw unauthorized(
+                'Sorry, that email or password is invalid, please try again.'
+            );
+        }
+        throw unauthorized(
+            'Sorry, that email or password is invalid, please try again.'
+        );
+    }
+
+    // public async refreshToken(refreshToken: any, headers: any): Promise<any> {
+    //     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    //     const clientCredentials = await this.getClientCredentials(headers.xConsumerId);
+    //     if (clientCredentials) {
+    //         return await axios.post(
+    //             process.env.KONG_PROXY + '/oauth2/token',
+    //             {
+    //                 client_id: clientCredentials.client_id,
+    //                 client_secret: clientCredentials.client_secret,
+    //                 grant_type: 'refresh_token',
+    //                 refresh_token: refreshToken.refresh_token,
+    //             },
+    //             {
+    //                 headers: {
+    //                     apikey: headers.apikey,
+    //                 },
+    //             }).then(token => token.data);
+    //     }
+    //     throw unauthorized('Sorry, the refresh token is invalid, please try again.');
+    // }
+
+    // public async getAuthenticatedUser(headers: any): Promise<any> {
+    //     const authorization = headers.authorization.split(' ')[1];
+    //     return this.getAsync(authorization).then(data => JSON.parse(data));
+    // }
+}

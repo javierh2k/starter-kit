@@ -1,19 +1,25 @@
 import * as express from 'express';
-import { ExpressErrorMiddlewareInterface, HttpError, Middleware } from 'routing-controllers';
+import {
+    ExpressErrorMiddlewareInterface,
+    HttpError,
+    Middleware
+} from 'routing-controllers';
 
-import { Logger, LoggerInterface } from '../../decorators/Logger';
+import { Logger, ILogger } from '../../decorators/Logger';
 import { env } from '../../env';
 
 @Middleware({ type: 'after' })
 export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {
-
     public isProduction = env.isProduction;
 
-    constructor(
-        @Logger(__filename) private log: LoggerInterface
-    ) { }
+    constructor(@Logger(__filename) private log: ILogger) {}
 
-    public error(error: HttpError, req: express.Request, res: express.Response, next: express.NextFunction): void {
+    public error(
+        error: HttpError,
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ): void {
         res.status(error.httpCode || 500);
         res.json({
             name: error.name,
@@ -26,7 +32,5 @@ export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {
         } else {
             this.log.error(error.name, error.stack);
         }
-
     }
-
 }

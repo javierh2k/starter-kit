@@ -10,7 +10,7 @@ export abstract class Base {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
 
-    @CreateDateColumn({ type: 'timestamp' })
+    @CreateDateColumn({ type: 'timestamp', nullable: true })
     public created: Date;
 
     @UpdateDateColumn({ type: 'timestamp', select: false })

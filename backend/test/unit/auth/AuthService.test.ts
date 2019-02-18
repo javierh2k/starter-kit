@@ -1,13 +1,12 @@
 import { Request } from 'express';
 import * as MockExpressRequest from 'mock-express-request';
-import { User } from 'src/api/models/User';
+import { User } from './../../../src/api/models/User';
 
 import { AuthService } from '../../../src/auth/AuthService';
 import { LogMock } from '../lib/LogMock';
 import { RepositoryMock } from '../lib/RepositoryMock';
 
 describe('AuthService', () => {
-
     let authService: AuthService;
     let userRepository: RepositoryMock<User>;
     let log: LogMock;
@@ -26,7 +25,7 @@ describe('AuthService', () => {
                 },
             });
             const credentials = authService.parseBasicAuthFromRequest(req);
-            expect(credentials.username).toBe('bruce');
+            expect(credentials.email).toBe('bruce');
             expect(credentials.password).toBe('1234');
         });
 
@@ -36,7 +35,10 @@ describe('AuthService', () => {
             });
             const token = authService.parseBasicAuthFromRequest(req);
             expect(token).toBeUndefined();
-            expect(log.infoMock).toBeCalledWith('No credentials provided by the client', []);
+            expect(log.infoMock).toBeCalledWith(
+                'No credentials provided by the client',
+                []
+            );
         });
 
         test('Should return undefined if there is a invalid basic authorization header', () => {
@@ -47,9 +49,10 @@ describe('AuthService', () => {
             });
             const token = authService.parseBasicAuthFromRequest(req);
             expect(token).toBeUndefined();
-            expect(log.infoMock).toBeCalledWith('No credentials provided by the client', []);
+            expect(log.infoMock).toBeCalledWith(
+                'No credentials provided by the client',
+                []
+            );
         });
-
     });
-
 });

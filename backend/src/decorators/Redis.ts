@@ -1,17 +1,16 @@
 import { Container } from 'typedi';
+import { Redis as redisDB, IRedis } from '../lib/Redis';
 
-import { Logger as WinstonLogger } from '../lib/logger';
-
-export function Logger(scope: string): any {
+export function Redis(): any {
     return (object: any, propertyName: string, index?: number): any => {
-        const logger = new WinstonLogger(scope);
+        const redis = new redisDB();
         Container.registerHandler({
             object,
             propertyName,
             index,
-            value: () => logger,
+            value: () => redis,
         });
     };
 }
 
-export { ILogger } from '../lib/logger';
+export { IRedis };

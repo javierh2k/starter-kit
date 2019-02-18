@@ -32,8 +32,13 @@ export class User extends Base {
         user: User,
         password: string
     ): Promise<boolean> {
+        console.log(user, password, 'oooooo');
         return new Promise((resolve, reject) => {
+            // if (reject) {
+            //     throw new Error('Fail password:' + password);
+            // }
             bcrypt.compare(password, user.password, (err, res) => {
+                console.log(err);
                 resolve(res === true);
             });
         });
